@@ -16,7 +16,6 @@ class Index extends React.Component {
   }
 
   render() {
-    const postEdges = this.props.data.allMarkdownRemark.edges;
     return (
       <div className="index-container">
         <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" />
