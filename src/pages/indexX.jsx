@@ -1,14 +1,32 @@
 import React from "react";
 import Helmet from "react-helmet";
+import Script from "react-load-script";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
 import config from "../../data/SiteConfig";
 
 class Index extends React.Component {
+  handleScriptLoad() {
+    if (typeof window !== `undefined` && window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+    window.netlifyIdentity.init();
+  }
+
   render() {
     const postEdges = this.props.data.allMarkdownRemark.edges;
     return (
       <div className="index-container">
+        <Script
+          url="https://identity.netlify.com/v1/netlify-identity-widget.js"
+          onLoad={() => this.handleScriptLoad()}
+        />
         <Helmet title={config.siteTitle} />
         <SEO postEdges={postEdges} />
         <PostListing postEdges={postEdges} />

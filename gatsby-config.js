@@ -25,11 +25,18 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: "posts",
-        path: `${__dirname}/content/${config.blogPostDir}`
-      }
+        path: `${__dirname}/src/pages`,
+        name: 'pages',
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/img`,
+        name: 'images',
+      },
     },
     {
       resolve: "gatsby-transformer-remark",
@@ -161,7 +168,11 @@ module.exports = {
         ]
       }
     },
-    'gatsby-plugin-netlify-cms',
-    'gatsby-plugin-netlify'
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.js`,
+      },
+    },
   ]
 };
